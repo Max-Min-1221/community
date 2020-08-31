@@ -39,7 +39,7 @@ public class Page {
     }
 
     public void setRows(int rows) {
-        if(rows >= 1){
+        if(rows >= 0){
             this.rows = rows;
         }
     }
@@ -62,22 +62,22 @@ public class Page {
     public int getTotal(){
         // rows / limit [+1]
         if(rows % limit == 0){
-            return rows % limit;
+            return rows / limit;
         }else{
-            return rows % limit + 1;
+            return rows / limit + 1;
         }
     }
 
     // 获取起始页码
     public int getFrom(){
         int from = current - 2;
-        return Math.max(from, 1);
+        return from < 1 ? 1 : from;
     }
 
     // 获取结束页码
     public int getTo(){
         int to = current + 2;
         int total = getTotal();
-        return Math.min(to, total);
+        return to > total ? total : to;
     }
 }
